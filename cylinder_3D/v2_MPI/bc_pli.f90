@@ -1,0 +1,86 @@
+    SUBROUTINE BC_PLI
+
+    USE COMDAT_SHARED
+
+	IMPLICIT NONE
+	SAVE
+	
+	INCLUDE 'mpif.h'
+	
+	INTEGER :: status(MPI_STATUS_SIZE)
+	
+    DUM_3D=PLI
+!-----------------------------------------
+!   CYLINDER SURFACE AND INLET & OUTLET
+!-----------------------------------------
+	DO K=KS,KE
+	DO J=JS1,JE1
+	I=IS
+	! WALL BOUNDARY SURFACE
+    !AP(I+1,J,K) = AP(I+1,J,K)-AW(I+1,J,K)
+    AW(I+1,J,K) = 0.0D0
+    PLI(I,J,K) = 1.D0/3.D0*((4.D0*PLI(I+1,J,k)-PLI(I+2,J,K))					&
+                +Q12(I,J,K)/Q11(I,J,K) *0.5D0*(DUM_3D(I,J+1,K)-DUM_3D(I,J-1,K)))
+
+    I=IE
+	! OUTFLOW BOUNDARY SURFACE
+    !AP(I-1,J,K) = AP(I-1,J,K)-AE(I-1,J,K)
+    AE(I-1,J,K) = 0.0D0
+    PLI(I,J,K) = 1.D0/3.D0*((4.D0*PLI(I-1,J,k)-PLI(I-2,J,K))					&
+ 				-Q12(I,J,K)/Q11(I,J,K) *0.5D0*(DUM_3D(I,J+1,K)-DUM_3D(I,J-1,K)))
+	ENDDO
+	ENDDO
+!-------------------------------------------
+!   BRANCH CUT REGION
+!-------------------------------------------
+	DO K=KS,KE
+	DO I=IS,IE
+    J=JS
+	    PLI(I,J,K) = PLI(I,JE1,K)
+	J=JE
+		PLI(I,J,K) = PLI(I,JS1,K)
+	ENDDO
+	ENDDO
+!-------------------------------------------
+!   PERIODIC WALL OF BOUNDARY
+!-------------------------------------------
+!	DO J=0,NJ
+!	DO I=0,NI
+!	K=0
+!!		AP(I,J,SZ1) = AP(I,J,SZ1)-AB(I,J,SZ1)
+!!		AB(I,J,SZ1) = 0.D0
+!!		PLI(I,J,K) = PLI(I,J,K+1)
+!		PLI(I,J,K) = PLI(I,J,NKM1)
+!	K=NK
+!!		AP(I,J,EZ1) = AP(I,J,EZ1)-AT(I,J,EZ1)
+!!		AT(I,J,EZ1) = 0.D0
+!!		PLI(I,J,K) = PLI(I,J,K-1)
+!		PLI(I,J,K) = PLI(I,J,1)
+!	ENDDO
+!	ENDDO
+	
+	DO J=JS,JE
+	
+	DO I=IS,IE
+	
+	IF(RANK.EQ.0)		CALL MPI_ISEND(PLI(I,J,KS1),1,MPI_DOUBLE_PRECISION,NPRC-1,TAG1,MPI_COMM_WORLD,ISEND2,ERR)
+	
+	IF(RANK.EQ.NPRC-1)	CALL MPI_ISEND(PLI(I,J,KE1),1,MPI_DOUBLE_PRECISION,0,TAG2,MPI_COMM_WORLD,ISEND1,ERR)
+
+	IF(RANK.EQ.NPRC-1)	CALL MPI_IRECV(PLI(I,J,KE) ,1,MPI_DOUBLE_PRECISION,0,TAG1,MPI_COMM_WORLD,IRECV2,ERR)
+		
+	IF(RANK.EQ.0)		CALL MPI_IRECV(PLI(I,J,KS) ,1,MPI_DOUBLE_PRECISION,NPRC-1,TAG2,MPI_COMM_WORLD,IRECV1,ERR)
+	
+	CALL MPI_WAIT(ISEND1,STATUS,ERR)
+	
+	CALL MPI_WAIT(ISEND2,STATUS,ERR)
+	
+	CALL MPI_WAIT(IRECV1,STATUS,ERR)
+	
+	CALL MPI_WAIT(IRECV2,STATUS,ERR)
+	
+	ENDDO
+	
+	ENDDO
+	
+    END SUBROUTINE BC_PLI
