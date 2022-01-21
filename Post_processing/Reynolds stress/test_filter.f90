@@ -1,0 +1,51 @@
+	SUBROUTINE TEST_FILTER(IN,OUT)
+	
+	USE COMDAT_SHARED
+      
+	IMPLICIT NONE
+	SAVE
+
+	DOUBLE PRECISION, INTENT(IN)  :: IN(IS:IE,JS:JE,KS:KE)
+	DOUBLE PRECISION, INTENT(OUT) :: OUT(IS:IE,JS:JE,KS:KE)
+	
+	!	VOLUME-WEIGHTED AVERAGE
+
+	OUT(IS1:IE1,JS1:JE1,KS1:KE1) = (																						&
+	 	  IN(IS:IE-2,JS1-1:JE1-1,KS:KE-2) +	2.0D0*IN(IS1:IE1,JS1-1:JE1-1,KS:KE-2) +       IN(IS+2:IE,JS1-1:JE1-1,KS:KE-2)+	&
+	
+	2.0D0*IN(IS:IE-2,JS1  :JE1  ,KS:KE-2) +	4.0D0*IN(IS1:IE1,JS1  :JE1  ,KS:KE-2) + 2.0D0*IN(IS+2:IE,JS1  :JE1  ,KS:KE-2)+	&
+	
+		  IN(IS:IE-2,JS1+1:JE1+1,KS:KE-2) +	2.0D0*IN(IS1:IE1,JS1+1:JE1+1,KS:KE-2) +       IN(IS+2:IE,JS1+1:JE1+1,KS:KE-2)+	&
+	
+	2.0D0*IN(IS:IE-2,JS1-1:JE1-1,KS1:KE1) +	4.0D0*IN(IS1:IE1,JS1-1:JE1-1,KS1:KE1) + 2.0D0*IN(IS+2:IE,JS1-1:JE1-1,KS1:KE1)+	&
+	
+	4.0D0*IN(IS:IE-2,JS1  :JE1  ,KS1:KE1) +	8.0D0*IN(IS1:IE1,JS1  :JE1  ,KS1:KE1) + 4.0D0*IN(IS+2:IE,JS1  :JE1  ,KS1:KE1)+	&
+	
+	2.0D0*IN(IS:IE-2,JS1+1:JE1+1,KS1:KE1) +	4.0D0*IN(IS1:IE1,JS1+1:JE1+1,KS1:KE1) + 2.0D0*IN(IS+2:IE,JS1+1:JE1+1,KS1:KE1)+	&
+	
+		  IN(IS:IE-2,JS1-1:JE1-1,KS+2:KE) +	2.0D0*IN(IS1:IE1,JS1-1:JE1-1,KS+2:KE) +       IN(IS+2:IE,JS1-1:JE1-1,KS+2:KE)+	&
+	
+	2.0D0*IN(IS:IE-2,JS1  :JE1  ,KS+2:KE) +	4.0D0*IN(IS1:IE1,JS1  :JE1  ,KS+2:KE) + 2.0D0*IN(IS+2:IE,JS1  :JE1  ,KS+2:KE)+	&
+	
+		  IN(IS:IE-2,JS1+1:JE1+1,KS+2:KE) +	2.0D0*IN(IS1:IE1,JS1+1:JE1+1,KS+2:KE) +       IN(IS+2:IE,JS1+1:JE1+1,KS+2:KE) )/64.0D0
+
+!	DO K=ks1,ke1
+!	DO J=js1,je1
+!	DO I=is1,ie1
+!		OUT(I,J,K) = ( &
+!					      IN(I-1,J-1,K-1) + 2.0D0*IN(I,J-1,K-1) +       IN(I+1,J-1,K-1) + &
+!					2.0D0*IN(I-1,J  ,K-1) + 4.0D0*IN(I,J  ,K-1) + 2.0D0*IN(I+1,J  ,K-1) + &
+!					      IN(I-1,J+1,K-1) + 2.0D0*IN(I,J+1,K-1) +       IN(I+1,J+1,K-1) + &
+!
+!					2.0D0*IN(I-1,J-1,K  ) + 4.0D0*IN(I,J-1,K  ) + 2.0D0*IN(I+1,J-1,K  ) + &
+!					4.0D0*IN(I-1,J  ,K  ) + 8.0D0*IN(I,J  ,K  ) + 4.0D0*IN(I+1,J  ,K  ) + &
+!					2.0D0*IN(I-1,J+1,K  ) + 4.0D0*IN(I,J+1,K  ) + 2.0D0*IN(I+1,J+1,K  ) + &
+!
+!					      IN(I-1,J-1,K+1) + 2.0D0*IN(I,J-1,K+1) +       IN(I+1,J-1,K+1) + &
+!					2.0D0*IN(I-1,J  ,K+1) + 4.0D0*IN(I,J  ,K+1) + 2.0D0*IN(I+1,J  ,K+1) + &
+!					      IN(I-1,J+1,K+1) + 2.0D0*IN(I,J+1,K+1) +       IN(I+1,J+1,K+1) )/64.0D0
+!	ENDDO
+!	ENDDO
+!	ENDDO
+
+	END SUBROUTINE TEST_FILTER

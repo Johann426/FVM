@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VisualStudioProject ProjectCreator="Intel Fortran" Keyword="Console Application" Version="11.0" ProjectIdGuid="{1D97F0F9-BDFB-4D14-95D6-3BF035B38C80}">
+	<Platforms>
+		<Platform Name="Win32"/>
+		<Platform Name="x64"/></Platforms>
+	<Configurations>
+		<Configuration Name="Debug|Win32" DeleteExtensionsOnClean="*.obj;*.mod;*.pdb;*.asm;*.map;*.dyn;*.dpi;*.tmp;*.log;*.ilk;*.exe;$(TargetPath)">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" ModulePath="$(INTDIR)/" ObjectFile="$(INTDIR)/" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OUTDIR)/cylinder.exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" ProgramDatabaseFile="$(OUTDIR)/cylinder.pdb" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" HeaderFileName="$(InputName).h" TypeLibraryName="$(IntDir)/$(InputName).tlb"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/></Configuration>
+		<Configuration Name="Release|Win32" DeleteExtensionsOnClean="*.obj;*.mod;*.pdb;*.asm;*.map;*.dyn;*.dpi;*.tmp;*.log;*.ilk;*.exe;$(TargetPath)">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" ModulePath="$(INTDIR)/" ObjectFile="$(INTDIR)/"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OUTDIR)/cylinder.exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" HeaderFileName="$(InputName).h" TypeLibraryName="$(IntDir)/$(InputName).tlb"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Debug|x64" DeleteExtensionsOnClean="*.obj;*.mod;*.pdb;*.asm;*.map;*.dyn;*.dpi;*.tmp;*.log;*.ilk;*.exe;$(TargetPath)">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" AdditionalIncludeDirectories="C:\Program Files\Microsoft HPC Pack 2008 SDK\Include" ModulePath="$(INTDIR)/" ObjectFile="$(INTDIR)/" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OUTDIR)/cylinder.exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="C:\Program Files\Microsoft HPC Pack 2008 SDK\Lib\amd64" GenerateDebugInformation="true" ProgramDatabaseFile="$(OUTDIR)/cylinder.pdb" SubSystem="subSystemConsole" AdditionalDependencies="msmpi.lib msmpifec.lib msmpifmc.lib"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" HeaderFileName="$(InputName).h" TypeLibraryName="$(IntDir)/$(InputName).tlb"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/></Configuration>
+		<Configuration Name="Release|x64" DeleteExtensionsOnClean="*.obj;*.mod;*.pdb;*.asm;*.map;*.dyn;*.dpi;*.tmp;*.log;*.ilk;*.exe;$(TargetPath)">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" AdditionalIncludeDirectories="C:\Program Files\Microsoft HPC Pack 2008 SDK\Include" ModulePath="$(INTDIR)/" ObjectFile="$(INTDIR)/"/>
+				<Tool Name="VFLinkerTool" OutputFile="$(OUTDIR)/cylinder.exe" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="C:\Program Files\Microsoft HPC Pack 2008 SDK\Lib\amd64" SubSystem="subSystemConsole" AdditionalDependencies="msmpi.lib msmpifec.lib msmpifmc.lib"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" HeaderFileName="$(InputName).h" TypeLibraryName="$(IntDir)/$(InputName).tlb"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
+	<Files>
+		<Filter Name="Header Files" Filter="fi;fd"/>
+		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
+		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
+		<File RelativePath="bcp.f90"/>
+		<File RelativePath="bct.f90"/>
+		<File RelativePath="bcu.f90"/>
+		<File RelativePath="calc_vor.f90"/>
+		<File RelativePath="calccoef.f90"/>
+		<File RelativePath="comdat_param.f90"/>
+		<File RelativePath="comdat_shared.f90"/>
+		<File RelativePath="contra_vel.f90"/>
+		<File RelativePath="define.f90"/>
+		<File RelativePath="dif.f90"/>
+		<File RelativePath="dif_diagonal.f90"/>
+		<File RelativePath="find_root.f90"/>
+		<File RelativePath=".\fmpich2.lib"/>
+		<File RelativePath="grid.f90"/>
+		<File RelativePath="init.f90"/>
+		<File RelativePath="iter_p.f90"/>
+		<File RelativePath="iter_t.f90"/>
+		<File RelativePath="iter_u.f90"/>
+		<File RelativePath="lisolv.f90"/>
+		<File RelativePath="main.f90"/>
+		<File RelativePath="metric.f90"/>
+		<File RelativePath="mpi_x.f90"/>
+		<File RelativePath="nl.f90"/>
+		<File RelativePath="p_source.f90"/>
+		<File RelativePath="post_process.f90"/>
+		<File RelativePath="stress_tensor_dy.f90"/>
+		<File RelativePath="test_filter.f90"/>
+		<File RelativePath="writedata.f90"/></Filter></Files>
+	<Globals/></VisualStudioProject>
